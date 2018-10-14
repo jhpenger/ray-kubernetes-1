@@ -57,8 +57,6 @@ You can choose to define # of actors by passing in an additional parameter. (e.g
 Your expected run-time should be ~`2.5` seconds, but might be slower due to reaching cluster's max CPU capacity.
 
 # Notes
-Instructions setup for Koç Lab @ University of California Santa Barbara.
-
 We are trying to utilize Ray cluster to do reinforcement learning on [Gibson Enviroment](http://gibsonenv.stanford.edu/).
 
 Currently in the very early stages of exploring `ray` and `Gibson`. Would greately appreciate guidance from anyone with:
