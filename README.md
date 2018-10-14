@@ -57,15 +57,13 @@ You can choose to define # of actors by passing in an additional parameter. (e.g
 Your expected run-time should be ~`2.5` seconds, but might be slower due to reaching cluster's max CPU capacity.
 
 # Notes
-Instructions setup for Koç Lab @ University of California Santa Barbara.
-
 We are trying to utilize Ray cluster to do reinforcement learning on [Gibson Enviroment](http://gibsonenv.stanford.edu/).
 
 Currently in the very early stages of exploring `ray` and `Gibson`. Would greately appreciate guidance from anyone with:
 * experience in running reinforcement earning simulations on large clusters using `GCloud` or `AWS`.
 * using Google's `Preemptible VM Instances` with `ray` to cut down costs. Specifically in dealing with what to do when `pre-emptible instance` restarts.
 
-Contact [Sam](mailto:samgreen@gmail.com) and [Jun](mailto:peng00@cs.ucsb.edu)
+Contact [Sam](mailto:samgreen@gmail.com), [Jun](mailto:peng00@cs.ucsb.edu), or [Rodger](mailto:jieliang@ucsb.edu)
 Thanks,
 
 Contact me @ [peng00@cs.ucsb.edu](mailto:peng00@cs.ucsb.edu)
