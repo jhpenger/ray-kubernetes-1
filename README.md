@@ -65,7 +65,7 @@ Currently in the very early stages of exploring `ray` and `Gibson`. Would greate
 * experience in running reinforcement earning simulations on large clusters using `GCloud` or `AWS`.
 * using Google's `Preemptible VM Instances` with `ray` to cut down costs. Specifically in dealing with what to do when `pre-emptible instance` restarts.
 
-Contact [Sam](mailto:samgreen@gmail.com) and [Jun](mailto:peng00@cs.ucsb.edu)
+Contact [Sam](mailto:samgreen@gmail.com), [Jun](mailto:peng00@cs.ucsb.edu), or [Rodger](mailto:jieliang@ucsb.edu)
 Thanks,
 
 Contact me @ [peng00@cs.ucsb.edu](mailto:peng00@cs.ucsb.edu)
