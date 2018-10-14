@@ -31,8 +31,9 @@ RUN apt-get update \
     && pip install jupyter \
     && pip install lz4
 
-RUN export LC_ALL=C.UTF-8 \
-    && export LANG=C.UTF-8
+RUN echo "export LC_ALL=C.UTF-8" >> ~/.bashrc \
+    && echo "export LANG=C.UTF-8" >> ~/.bashrc \
+    && echo "alias python=python3" >> ~/.bashrc
 
 RUN ssh-keygen -f /root/.ssh/id_rsa -P "" \
     && echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config

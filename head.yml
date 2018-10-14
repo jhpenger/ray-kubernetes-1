@@ -39,3 +39,5 @@ spec:
         echo id_rsa.pub is -;
         more ~/.ssh/id_rsa.pub
         && while true; do sleep 30; done;"
+
+#alias python=python3; export LC_ALL=C.UTF-8; export LANG=C.UTF-8;
