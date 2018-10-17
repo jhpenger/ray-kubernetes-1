@@ -26,6 +26,10 @@ Run:
 bash build.sh
 ```
 ```
+gcloud auth configure-docker
+```
+
+```
 docker push <image-tag>
 ```
 #### Deploying Pods on Kubernetes Cluster
