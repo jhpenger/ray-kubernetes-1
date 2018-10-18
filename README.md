@@ -15,7 +15,7 @@ Install `kubectl` on your local machine using either `gcloud components install 
 On your [GCloud Console](console.cloud.google.com) goto ->Project->Kubernetes Engine->Clusters and click on `Connect`. Paste the code to command-line to give `kubectl` access to your cluster.
 #### Build and Push Docker Image
 
-Clone the [repository](https://github.com/jhpenger/ray-kubernetes): `git clone https://github.com/jhpenger/ray-kubernetes.git`
+Clone the [repository](https://github.com/jhpenger/ray-kubernetes-1)
 
 Edit `build.sh`, `head.yml`, `worker.yml`: replace `tutorial-218804` with your project-ID
 
