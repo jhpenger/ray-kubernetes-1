@@ -1,8 +1,6 @@
-# Running Ray on Kubernetes Cluster
+# Running Ray on Kubernetes Cluster on GCE
 ## Instructions
-[Medium Post](https://medium.com/@apengjh/4634a51effc9)
 
-ray-project [here](https://github.com/ray-project/ray)
 #### Setup Google Cloud and Install Cloud SDK
 Follow instructions from Google [here](https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu) to install Cloud SDK for Ubuntu.
 
