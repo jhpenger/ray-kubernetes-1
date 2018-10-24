@@ -28,7 +28,7 @@ class Foo(object):
         return self.counter
 
 try:
-    num_of_actors = int(sys.argv[3])
+    num_of_actors = int(sys.argv[2])
 except:
     num_of_actors = 68*2
 Foos = [Foo.remote() for _ in range(num_of_actors)]
@@ -68,5 +68,5 @@ duration = end_time - start_time
 
 print(results)
 print("Usage: python test_cluster.py <redis-address> <#-of-ray-actors> \n <#-of-ray-actors> OPTIONAL, default = 136")
-print('Success! The example took {} seconds.'.format(duration))
+print('The example took {} seconds.'.format(duration))
 print('Num of ray actors = %d' %num_of_remote_functions)

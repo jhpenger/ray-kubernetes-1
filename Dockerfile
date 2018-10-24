@@ -1,48 +1,60 @@
 FROM ubuntu:latest
-RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
-    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.utf8
+
+# If you wish to default to bash shell instead of sh(Bourne) shell:
+#     RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 # disable interactive functions, suppress tzdata prompting for geographic location
 ENV DEBIAN_FRONTEND noninteractive
 
-# missing tzdata in 18.04 beta
-RUN apt-get update && \
-    apt-get install -y tzdata
+RUN apt -qq update \
+    && apt-get -qq install --no-install-recommends apt-utils \
+    && apt-get -qq install git wget \
+    && apt-get -qq install cmake pkg-config build-essential autoconf curl libtool unzip flex bison psmisc nano openssh-server \
+    && apt-get -qq install python-opencv
 
-RUN apt-get update \
-    && apt-get install -y vim git wget \
-    && apt-get install -y cmake build-essential autoconf curl libtool libboost-all-dev unzip \
-    && apt-get install -y python3-pip
-RUN pip3 install --upgrade pip
-RUN git clone https://github.com/jhpenger/ray-kubernetes.git
-RUN pip install numpy
+# Install miniconda3, create env named: ray-kubernetes
+RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda3 -b
+RUN rm Miniconda3-latest-Linux-x86_64.sh
+ENV PATH=/miniconda3/bin:${PATH}
+RUN conda update -y conda
+RUN conda create -y -n ray-kubernetes python=3.6.5
+#don't use 3.7, have to use wheel's url to pip install some pkgs due to name conflicts
 
-#install additional dependencies
-RUN apt-get update \
-    && apt-get -y install flex \
-    && apt-get -y install bison \
-    && apt-get install -y nano \
-    && apt-get install -y openssh-server \
-    && apt install -y python-opencv \
-    && apt install pssh \
-    && pip install cython \
-    && pip install pyarrow \
-    && apt-get install -y pkg-config \
-    && pip install modin \
-    && pip install tensorflow \
-    && pip install gym \
-    && pip install scipy \
-    && pip install opencv-python \
-    && pip install bokeh \
-    && pip install ipywidgets==6.0.0 \
-    && pip install jupyter \
-    && pip install lz4
 
-RUN echo "alias python='python3'" >> ~/.bashrc
 
+#Set ray-kubernetes as current environment
+#if you instead alter then run ~/.bashrc, and use conda activate: Everything must be within the same Docker RUN command
+ENV PATH /miniconda3/envs/ray-kubernetes/bin:$PATH
+
+
+#update pip to 18.1 from conda-forge (or replace this section with: `pip install --upgrade pip`).
+#`pip install --upgrade` might be faster
+RUN conda config --add channels conda-forge && \
+    conda update -n ray-kubernetes pip && \
+    conda install libgcc
+#libgcc might be already downloaded with conda create
+
+
+#Install ray and relevant python packages
+RUN pip install ray pssh cython pyarrow tensorflow gym scipy opencv-python bokeh jupyter lz4
+
+
+#Conda4.4 or later requires the following
+RUN echo ". /miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+RUN ln -s /miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+
+#activate ray-kubernetes ENV by default
+#RUN echo conda activate ray-kubernetes >> ~/.bashrc
+
+#Generate SSH key-pair
+#This creates the SSH key once when you build the Docker Image
+#All Kubernetes pods from same image will have same SSH key-pairs
+#If you want different SSH keys for each pod, do this in `head.yml` and `worker.yml` instead
 RUN ssh-keygen -f /root/.ssh/id_rsa -P "" \
     && echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 
-#RUN echo "export LC_ALL='C.UTF-8'" >> ~/.bashrc \
-#   && echo "export LANG='C.UTF-8'" >> ~/.bashrc
+#Clone the ray-kubes git repo for test codes
+RUN git clone https://github.com/jhpenger/ray-kubernetes-1.git
